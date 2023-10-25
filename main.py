@@ -1,22 +1,14 @@
-import socket
+import subprocess
 import mysql.connector
 from datetime import datetime
 
-
+# Database configuration
 db_config = {
     'host': 'localhost',
     'user': 'root',
     'password': 'Nani@01012004',
     'database': 'dbms_project',
 }
-
-UDP_IP = "0.0.0.0"
-UDP_PORT = 8888
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((UDP_IP, UDP_PORT))
-
-
 try:
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
@@ -25,24 +17,43 @@ except mysql.connector.Error as err:
     print(f"Error: {err}")
     exit()
 
+# Main menu loop
 while True:
-    data, addr = sock.recvfrom(1024)
-    student_id = data.decode()
-    print("Received Student ID:", student_id)
-    student_id = student_id[:-1]
+    print("\nMenu Options:")
+    print("1. Start Attendance Recording ")
+    print("2. Option 2")
+    print("3. Option 3")
+    print("4. Option 4")
+    print("5. Option 5")
+    print("6. Option 6")
+    print("7. Option 7")
+    print("8. Option 8")
+    print("9. Option 9")
+    print("10. Option 10")
+    print("0. Exit Program")
 
-    now = datetime.now()
-    date = now.strftime("%Y-%m-%d")
-    time = now.strftime("%H:%M:%S")
-    status = "Present"
+    option = input("Select an option: ")
 
-    try:
-        cursor.execute("INSERT INTO attendance (student_id, date, time, status) VALUES (%s, %s, %s, %s)",
-                       (student_id, date, time, status))
-        conn.commit()
-        print("Inserted into the database")
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
+    if option == '0':
+        print("Exiting the program.")
+        break
+    elif option == '1':
+        # Start attendance recording (similar to your previous loop)
+        print("Recording attendance, press q to terminate")
+        process = subprocess.Popen(['python', 'record_attendance.py'])
+        ch = input()
+        while ch != 'q':
+            print("You have to press q to stop recording the attendance")
+            ch = input()
+        process.terminate()
+        print("Stopped recording")
+    elif option == '2':
+        # Option 2 code
+        pass
+    elif option == '3':
+        # Option 3 code
+        pass
+    # Add code for the other menu options (2-10)
 
-
+# Close the database connection
 conn.close()
