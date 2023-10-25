@@ -2,7 +2,7 @@ import subprocess
 import mysql.connector
 from datetime import datetime
 
-# Database configuration
+
 db_config = {
     'host': 'localhost',
     'user': 'root',
@@ -17,7 +17,7 @@ except mysql.connector.Error as err:
     print(f"Error: {err}")
     exit()
 
-# Main menu loop
+
 while True:
     print("\nMenu Options:")
     print("1. Start Attendance Recording ")
@@ -29,16 +29,11 @@ while True:
     print("7. Option 7")
     print("8. Option 8")
     print("9. Option 9")
-    print("10. Option 10")
-    print("0. Exit Program")
+    print("10. Exit Program")
 
     option = input("Select an option: ")
 
-    if option == '0':
-        print("Exiting the program.")
-        break
-    elif option == '1':
-        # Start attendance recording (similar to your previous loop)
+    if option == '1':
         print("Recording attendance, press q to terminate")
         process = subprocess.Popen(['python', 'record_attendance.py'])
         ch = input()
@@ -48,12 +43,23 @@ while True:
         process.terminate()
         print("Stopped recording")
     elif option == '2':
-        # Option 2 code
         pass
     elif option == '3':
-        # Option 3 code
         pass
-    # Add code for the other menu options (2-10)
+    elif option == '4':
+        pass
+    elif option == '5':
+        pass
+    elif option == '6':
+        pass
+    elif option == '7':
+        pass
+    elif option == '8':
+        pass
+    elif option == '9':
+        pass
+    elif option == '10':
+        print("Quitting the program.")
+        break
 
-# Close the database connection
 conn.close()
