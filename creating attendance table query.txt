@@ -1,0 +1,7 @@
+CREATE TABLE attendance (
+    serial_number INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(255),
+    date DATE,
+    time TIME,
+    status VARCHAR(10)
+);
