@@ -27,6 +27,7 @@ while True:
     data, addr = sock.recvfrom(1024)
     student_id = data.decode()
     now = datetime.now()
+    student_id = student_id[:-1]
     date = now.strftime("%Y-%m-%d")
     time = now.strftime("%H:%M:%S")
     status = "Present"

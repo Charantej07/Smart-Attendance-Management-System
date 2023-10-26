@@ -17,7 +17,7 @@ except mysql.connector.Error as err:
     print(f"Error: {err}")
     exit()
 
-
+courseId = input("Enter the course id: ")
 while True:
     print("\nMenu Options:")
     print("1. Start Attendance Recording ")
@@ -34,6 +34,7 @@ while True:
     option = input("Select an option: ")
 
     if option == '1':
+        # Making absent for every every
         print("Recording attendance, press q to terminate")
         process = subprocess.Popen(['python', 'record_attendance.py'])
         ch = input()
