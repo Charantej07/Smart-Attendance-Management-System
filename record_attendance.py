@@ -5,7 +5,7 @@ from datetime import datetime
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Nani@01012004',
+    'password': 'khya',
     'database': 'dbms_project',
 }
 
@@ -26,8 +26,8 @@ except mysql.connector.Error as err:
 while True:
     data, addr = sock.recvfrom(1024)
     student_id = data.decode()
-    now = datetime.now()
     student_id = student_id[:-1]
+    now = datetime.now()
     date = now.strftime("%Y-%m-%d")
     time = now.strftime("%H:%M:%S")
     status = "Present"
