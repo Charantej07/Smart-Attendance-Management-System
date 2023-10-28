@@ -1,9 +1,14 @@
+import openpyxl
 import subprocess
 import mysql.connector
 from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.utils.dataframe import dataframe_to_rows
+
 
 # Database configuration
 db_config = {
@@ -191,6 +196,66 @@ def send_mail(cursor):
         print(f"Email sent to {email}")
 
 
+def create_attendance_excel(cursor):
+    start_date = input("Enter the start date (YYYY-MM-DD): ")
+    end_date = input("Enter the end date (YYYY-MM-DD): ")
+    course_id = input("Enter the course ID: ")
+
+    start_date = start_date.replace(":", "-")
+    end_date = end_date.replace(":", "-")
+
+    file_name = f"{course_id}_attendance_{start_date}_to_{end_date}.xlsx"
+
+    query = """
+    SELECT 
+        a.student_id, 
+        s.name AS student_name, 
+        s.email AS student_email, 
+        COUNT(*) AS total_classes_conducted,
+        SUM(CASE WHEN a.status = 'present' THEN 1 ELSE 0 END) AS classes_attended
+    FROM attendance a
+    JOIN student s ON a.student_id = s.student_id
+    WHERE a.course_id = %s AND a.date BETWEEN %s AND %s
+    GROUP BY a.student_id;
+    """
+
+    cursor.execute(query, (course_id, start_date, end_date))
+    attendance_data = cursor.fetchall()
+
+    if not attendance_data:
+        print("No attendance records found for the specified date range.")
+        return
+
+    df = pd.DataFrame(
+        attendance_data,
+        columns=[
+            "Student ID",
+            "Student Name",
+            "Student Email",
+            "Total Classes Conducted",
+            "Classes Attended"
+        ]
+    )
+
+    df["Attendance Percentage"] = (
+        df["Classes Attended"] / df["Total Classes Conducted"]) * 100
+    df = df.sort_values(by="Attendance Percentage", ascending=False)
+
+    wb = Workbook()
+    ws = wb.active
+
+    for col_num, column_title in enumerate(df.columns, 1):
+        ws.cell(row=1, column=col_num, value=column_title)
+
+    for record in df.to_records(index=False):
+        ws.append(list(record))
+
+    wb.save(file_name)
+
+    print(
+        f"Student attendance performance excel sheet for {course_id} between {start_date} and {end_date} has been saved to '{file_name}'.")
+
+
 def main():
     conn, cursor = connect_to_database()
     if conn is None:
@@ -249,7 +314,8 @@ def main():
             check_particular_day_attendance(cursor)
         elif option == '7':
             send_mail(cursor)
-
+        elif option == '9':
+            create_attendance_excel(cursor)
         elif option == '10':
             print("Quitting the program.")
             break
