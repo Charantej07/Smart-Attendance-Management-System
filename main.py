@@ -8,6 +8,7 @@ from email.mime.multipart import MIMEMultipart
 import pandas as pd
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
+import matplotlib.pyplot as plt
 
 
 # Database configuration
@@ -196,6 +197,47 @@ def send_mail(cursor):
         print(f"Email sent to {email}")
 
 
+def plot_graph(cursor):
+    start_date = input("Enter start date (YYYY-MM-DD): ")
+    end_date = input("Enter end date (YYYY-MM-DD): ")
+
+    date_range_attendance_query = """
+                SELECT date,
+                SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS present_count,
+                SUM(CASE WHEN status = 'Absent' THEN 1 ELSE 0 END) AS absent_count
+            FROM
+                attendance
+            WHERE
+                date BETWEEN %s AND %s
+            GROUP BY
+                date
+            ORDER BY
+                date;
+            """
+    cursor.execute(date_range_attendance_query, (start_date, end_date))
+    data = cursor.fetchall()
+    df = pd.DataFrame(data, columns=['date', 'present_count', 'absent_count'])
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(df['date'], df['present_count'], label='Present', marker='o')
+    plt.plot(df['date'], df['absent_count'], label='Absent', marker='o')
+
+    plt.xlabel('Date')
+    plt.ylabel('Number of Students')
+    plt.title(f'Attendance from {start_date} to {end_date}')
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.grid(True)
+
+    for i, row in df.iterrows():
+        plt.text(row['date'], row['present_count']+2,
+                 str(row['present_count']), ha='center', va='top', fontsize=8)
+        plt.text(row['date'], row['absent_count']+2,
+                 str(row['absent_count']), ha='center', va='top', fontsize=8)
+
+    plt.show()
+
+
 def create_attendance_excel(cursor):
     start_date = input("Enter the start date (YYYY-MM-DD): ")
     end_date = input("Enter the end date (YYYY-MM-DD): ")
@@ -271,9 +313,9 @@ def main():
         print("3. Details of students with attendance in a particular range")
         print("4. Get Monthly report")
         print("5. Check the attendance of a student")
-        print("6. Get the attendance details of a particualr student")
+        print("6. Get the attendance details of a particular student")
         print("7. Send alert mails for students with lower percentages")
-        print("8. Option 8")
+        print("8. Attendance trends chart")
         print("9. Get the details of the attendance in excel format")
         print("10. Exit Program")
 
@@ -314,6 +356,8 @@ def main():
             check_particular_day_attendance(cursor)
         elif option == '7':
             send_mail(cursor)
+        elif option == '8':
+            plot_graph(cursor)
         elif option == '9':
             create_attendance_excel(cursor)
         elif option == '10':
