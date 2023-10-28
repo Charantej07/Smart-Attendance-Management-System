@@ -10,7 +10,6 @@ from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 import matplotlib.pyplot as plt
 
-
 # Database configuration
 db_config = {
     'host': 'localhost',
@@ -198,6 +197,7 @@ def send_mail(cursor):
 
 
 def plot_graph(cursor):
+    course_id = input("Enter course id: ")
     start_date = input("Enter start date (YYYY-MM-DD): ")
     end_date = input("Enter end date (YYYY-MM-DD): ")
 
@@ -208,13 +208,15 @@ def plot_graph(cursor):
             FROM
                 attendance
             WHERE
+                course_id = %s AND
                 date BETWEEN %s AND %s
             GROUP BY
                 date
             ORDER BY
                 date;
             """
-    cursor.execute(date_range_attendance_query, (start_date, end_date))
+    cursor.execute(date_range_attendance_query,
+                   (course_id, start_date, end_date))
     data = cursor.fetchall()
     df = pd.DataFrame(data, columns=['date', 'present_count', 'absent_count'])
 
