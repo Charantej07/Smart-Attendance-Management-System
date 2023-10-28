@@ -1,6 +1,9 @@
 import subprocess
 import mysql.connector
 from datetime import datetime
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Database configuration
 db_config = {
@@ -24,7 +27,6 @@ def connect_to_database():
 
 def get_course_id(cursor, date, time):
     day_of_week = date.strftime('%A')
-    print(day_of_week)
     fetch_course_id_query = "SELECT course_id FROM timetable WHERE day = %s AND %s BETWEEN start_time AND end_time"
     cursor.execute(fetch_course_id_query, (day_of_week, time))
     course_id_result = cursor.fetchone()
@@ -141,6 +143,54 @@ def check_attendance_range(cursor):
         print("No students found within the specified range.")
 
 
+def check_particular_day_attendance(cursor):
+    date = input("Enter the date (YYYY-MM-DD): ")
+    course_id = input("Enter the course ID: ")
+    cursor.execute(
+        "select student_id, status from attendance where date = %s AND course_id = %s", (date, course_id))
+    result = cursor.fetchall()
+    present_students = []
+    absent_students = []
+    for student_id, status in result:
+        if status == "present":
+            present_students.append(student_id)
+        elif status == "absent":
+            absent_students.append(student_id)
+    print("Students present on", date, "for Course", course_id)
+    for student_id in present_students:
+        print(student_id)
+    print("\nStudents absent on", date, "for Course", course_id)
+    for student_id in absent_students:
+        print(student_id)
+
+
+def send_mail(cursor):
+    course_id = input("Enter the course ID: ")
+    minimum_attendance_percentage = float(
+        input("Enter the minimum attendance percentage: "))
+    cursor.execute("SELECT s.student_id,s.name,s.email, (COUNT(CASE WHEN a.status = 'present' THEN 1 ELSE NULL END) * 100.0 / COUNT(*)) AS percentage FROM student s join attendance a on s.student_id=a.student_id WHERE a.course_id = %s GROUP BY student_id HAVING percentage<%s", (course_id, minimum_attendance_percentage))
+    results = cursor.fetchall()
+
+    for student_id, student_name, email, attendance_percentage in results:
+        smtp_server = 'smtp.gmail.com'
+        smtp_port = 587
+        sender_email = 'khyathi2003kotipalli@gmail.com'
+        sender_password = 'xwkh murg aljh kxlq'
+
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = email
+        msg['Subject'] = 'Attendance Warning'
+        body = f"Dear {student_name},\n\nYour attendance percentage for the course {course_id}is below the specified percentage.\n\n Please ensure to attend the upcoming classes to improve your attendance percentage."
+        msg.attach(MIMEText(body, 'plain'))
+
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, email, msg.as_string())
+        print(f"Email sent to {email}")
+
+
 def main():
     conn, cursor = connect_to_database()
     if conn is None:
@@ -154,12 +204,12 @@ def main():
         print("1. Start Attendance Recording ")
         print("2. Enter Attendance Manually")
         print("3. Details of students with attendance in a particular range")
-        print("4. Monthly report")
-        print("5. Option 5")
-        print("6. Option 6")
-        print("7. Option 7")
+        print("4. Get Monthly report")
+        print("5. Check the attendance of a student")
+        print("6. Get the attendance details of a particualr student")
+        print("7. Send alert mails for students with lower percentages")
         print("8. Option 8")
-        print("9. Option 9")
+        print("9. Get the details of the attendance in excel format")
         print("10. Exit Program")
 
         option = input("Select an option: ")
@@ -195,6 +245,11 @@ def main():
                 print(existing_record[4])
             else:
                 print("No record found")
+        elif option == '6':
+            check_particular_day_attendance(cursor)
+        elif option == '7':
+            send_mail(cursor)
+
         elif option == '10':
             print("Quitting the program.")
             break
