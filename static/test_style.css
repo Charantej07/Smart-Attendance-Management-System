@@ -158,7 +158,8 @@
 
 .option {
     height: 0;
-    padding-bottom: 20%; /* 1:1 aspect ratio */
+    padding-bottom: 20%; 
+    text-decoration: none;
 }
 
 .option:hover {
@@ -166,7 +167,6 @@
     color: black;
     transform: scale(1.05);
 }
-
 
 
   #page4{
