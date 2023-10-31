@@ -183,7 +183,7 @@
   .left5>h1{
       position: absolute;
       top: 40%;
-      right: 5%;
+      right: 30%;
       transform: translateY(-50%);
       font-size: 5vw;
       font-weight: 100;
@@ -204,7 +204,7 @@
       transform: translateY(-50%);
       background-image: url(../Images/RFID_img.jpg);
       background-size: cover;
-      left: 5%;
+      left: 0%;
   }
   #page6{
       position: relative;
