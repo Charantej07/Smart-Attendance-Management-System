@@ -1,0 +1,132 @@
+/* Add or modify styles as needed */
+
+@font-face {
+    font-family: a;
+    src: url(Fonts/jost-variable.ttf);
+}
+
+@font-face {
+    font-family: b;
+    src: url(Fonts/KFOlCnqEu92Fr1MmEU9fBBc4\ \(1\).ttf);
+}
+
+@font-face {
+    font-family: c;
+    src: url(Fonts/KFOmCnqEu92Fr1Mu4mxK\ \(1\).ttf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: a;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    /* Set a maximum width */
+    margin: 0 auto;
+    /* Center the content */
+}
+
+#top>nav {
+    position: fixed;
+    /* Fix the navigation bar at the top */
+    top: 3%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 8px;
+    background-color: black;
+    width: 100%;
+}
+
+
+#top>nav>img {
+    width: 5%;
+    margin-left: 0.9%;
+}
+
+#right-nav>button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    font-family: a;
+    font-size: 15px;
+}
+
+.container {
+    background-color: #333;
+    border-radius: 10px;
+    width: 80%;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    margin: 10px 0;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: a;
+    font-size: 1rem;
+    margin: 0 10px;
+}
+
+.send-button {
+    background-color: #007BFF;
+    color: white;
+}
+
+.send-button:hover {
+    background-color: #0056b3;
+}
+
+.go-back-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    margin-top: 10px;
+}
