@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Mail</title>
+    <link rel="stylesheet" href="../static/record_attendance_style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h1>Send Attendance Warning Email</h1>
+            <form method="POST" action="/send_mail.html">
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="minimum_attendance_percentage">Minimum Attendance Percentage:</label>
+                    <input type="number" name="minimum_attendance_percentage" step="0.01" required>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="send-button">Send Emails</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <a href="index.html" class="go-back-link">Go Back</a>
+</body>
+
+</html>
