@@ -1,8 +1,0 @@
-CREATE TABLE timetable (
-    course_id VARCHAR(20),
-    course_name VARCHAR(50) NOT NULL,
-    day VARCHAR(10) NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
-    PRIMARY KEY(course_id,day)
-);

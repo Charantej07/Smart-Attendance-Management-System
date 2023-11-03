@@ -1,6 +1,0 @@
-CREATE TABLE instructor (
-    course_id VARCHAR(20) PRIMARY KEY,
-    inst_id VARCHAR(20),
-    inst_name VARCHAR(50),
-    course_name VARCHAR(50) NOT NULL
-);
