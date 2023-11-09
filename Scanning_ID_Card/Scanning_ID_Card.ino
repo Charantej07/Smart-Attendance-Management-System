@@ -10,9 +10,9 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
 MFRC522::StatusCode status;
 
-const char* ssid = "tae";
-const char* password = "khyathi1234";
-const char* host = "192.168.95.218";  // Change to the IP address of your Python server
+const char* ssid = "realme X2";
+const char* password = "e^ipi=-1";
+const char* host = " 192.168.208.252";  // Change to the IP address of your Python server
 unsigned int localPort = 8888;  // Change the port number
 
 WiFiUDP udp;
