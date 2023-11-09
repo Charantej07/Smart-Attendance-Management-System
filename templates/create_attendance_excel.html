@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Attendance Excel</title>
+    <link rel="stylesheet" href="../static/particular_day_attendance.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Create Attendance Excel</h1>
+            <form method="POST" action="/create_attendance_excel.html">
+
+                <div class="input-box">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+
+                <button type="submit" class="send-button">Generate excel</button>
+            </form>
+
+            {% if status %}
+            <p1>Status: {{ status}} </p1>
+            {% endif %}
+        </div>
+    </div>
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
+</body>
+
+</html>

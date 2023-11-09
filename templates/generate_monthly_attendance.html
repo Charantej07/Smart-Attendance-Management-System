@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Attendance Report</title>
+    <link rel="stylesheet" href="../static/generate_monthly_attendance.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Monthly Attendance Report</h1>
+            <form method="POST" action="/generate_monthly_attendance.html">
+
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+                <div class="input-box">
+                    <label for="year">Year(YYYY):</label>
+                    <input type="number" id="year" name="year" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="month">Month(MM):</label>
+                    <input type="number" id="month" name="month" required>
+                </div>
+
+
+                <button type="submit" class="send-button">Generate report</button>
+            </form>
+
+            {% if report %}
+            <h1>Monthly Attendance Report</h1>
+            <table border="1">
+                <tr>
+                    <th>Student ID</th>
+                    <th>Total Classes</th>
+                    <th>Attended Classes</th>
+                    <th>Attendance Percentage</th>
+                </tr>
+
+                {% for row in report %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}%</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
+</body>
+
+</html>

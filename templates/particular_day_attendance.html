@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particular Day Attendance</title>
+    <link rel="stylesheet" href="../static/particular_day_attendance.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Particular day attendance</h1>
+            <form method="POST" action="/particular_day_attendance.html">
+
+                <div class="input-box">
+                    <label for="date_to_check">Date to check:</label>
+                    <input type="date" id="date_to_check" name="date_to_check" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+
+                <button type="submit" class="send-button">Submit</button>
+            </form>
+
+            {% if students %}
+            <h2>Present Students:</h2>
+            <ul>
+                {% for student in students[0] %}
+                <li>Student ID: {{ student }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Absent Students:</h2>
+            <ul>
+                {% for student in students[1] %}
+                <li>Student ID: {{ student }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
+</body>
+
+</html>

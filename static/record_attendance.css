@@ -1,0 +1,110 @@
+@font-face {
+    font-family: a;
+    src: url(Fonts/jost-variable.ttf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: a;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#top {
+    height: 50px; /* Adjust the height as needed */
+}
+
+#top>nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 8px;
+    background-color: black;
+    width: 100%;
+}
+
+#top>nav>img {
+    width: 5%;
+    margin-left: 0.9%;
+    margin-top: 0.9%;
+}
+
+#right-nav>button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    font-family: a;
+    font-size: 15px;
+}
+
+.container {
+    margin-top: 60px; /* Add some margin to separate the content from the navigation bar */
+    background-color: #333;
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align the content */
+    text-align: center; /* Center-align text content */
+}
+
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.start-button, .stop-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.start-button:hover, .stop-button:hover {
+    background-color: #0056b3;
+}
+
+.absent-student {
+    font-size: 16px; /* Increase the font size */
+    margin: 10px 0; /* Add more margin for better separation */
+    color: #ff0000;
+    list-style-type:decimal; /* Remove the bullet points */
+    padding: 5px 0; /* Add padding for cleaner look */
+    border-bottom: 1px solid #fff; /* Add a separator line */
+}
+.go-back-link {
+    font-family: a; /* Styles links with the class "go-back-link" */
+    color: white;
+    font-size: 1.2rem; /* Adjusts the font size */
+    text-decoration: none;
+    margin-top: 3%;
+    margin-bottom: 3%; /* Removes underlines from links with this class */
+}
+

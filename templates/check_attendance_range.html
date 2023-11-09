@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Attendance Range</title>
+    <link rel="stylesheet" href="../static/check_attendance_range.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Check Attendance Range</h1>
+            <form method="POST" action="/check_attendance_range.html">
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="minimum_percentage">Minimum Attendance Percentage:</label>
+                    <input type="number" name="minimum_percentage" step="0.01" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="maximum_percentage">Maximum Attendance Percentage:</label>
+                    <input type="number" name="maximum_percentage" step="0.01" required>
+                </div>
+
+                <button type="submit" class="send-button">Check Attendance Range</button>
+            </form>
+
+            {% if students %}
+            <h2>Results:</h2>
+            <ul>
+                {% for student in students %}
+                <li>Student ID: {{ student['student_id'] }}, Percentage: {{ student['percentage'] }}%</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
+</body>
+
+</html>

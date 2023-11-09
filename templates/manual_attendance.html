@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Attendance Range</title>
+    <link rel="stylesheet" href="../static/manual_attendance.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body>
+    <div id="top">
+        <nav>
+            <img src="../static/Images/Srm logo.png" alt="">
+            <div id="right-nav">
+                <button>Options</button>
+                <button>About us</button>
+                <button><i class="ri-menu-fill"></i></button>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Manual Attendance</h1>
+            <form method="POST" action="/manual_attendance.html">
+                <div class="input-box">
+                    <label for="course_id">Course ID:</label>
+                    <input type="text" name="course_id" required>
+                </div>
+                <div class="input-box">
+                    <label for="date_to_modify">Date to modify:</label>
+                    <input type="date" id="date_to_modify" name="date_to_modify" required>
+                </div>
+                <div class="input-box">
+                    <label for="student_id">Student ID:</label>
+                    <input type="text" name="student_id" required>
+                </div>
+                <button type="submit" class="send-button">Check status</button>
+            </form>
+            {% if status %}
+            <h2>Results:</h2>
+            {% for sta in status %}
+            <p id="stat">Status: {{ sta[0] }}</p>
+            {% endfor %}
+            <div id="modification-form" style="display: none;">
+                <form method="POST" action="/modify_attendance">
+                    <input type="hidden" name="course_id" value="{{ request.form.course_id }}">
+                    <input type="hidden" name="date_to_modify" value="{{ request.form.date_to_modify }}">
+                    <input type="hidden" name="student_id" value="{{ request.form.student_id }}">
+                    <label for="present">Present</label>
+                    <input type="radio" name="status" value="present">
+                    <label for="absent"> Absent</label>
+                    <input type="radio" name="status" value="absent">
+                    <button type="submit" class="send-button">Modify Status</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        var statusDiv = document.getElementById("modification-form");
+        if (statusDiv) {
+            {% if status %}
+            statusDiv.style.display = "block";
+            {% endif %}
+        }
+    </script>
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
+</body>
+
+</html>
