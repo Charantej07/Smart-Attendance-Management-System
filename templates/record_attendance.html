@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Mail</title>
-    <link rel="stylesheet" href="../static/record_attendance_style.css">
+    <title>Attendance Recording</title>
+    <link rel="stylesheet" href="../static/record_attendance.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
 </head>
@@ -21,28 +21,27 @@
             </div>
         </nav>
     </div>
-
     <div class="container">
         <div class="content">
-            <h1>Send Attendance Warning Email</h1>
-            <form method="POST" action="/send_mail.html">
-                <div class="input-box">
-                    <label for="course_id">Course ID:</label>
-                    <input type="text" name="course_id" required>
-                </div>
-
-                <div class="input-box">
-                    <label for="minimum_attendance_percentage">Minimum Attendance Percentage:</label>
-                    <input type="number" name="minimum_attendance_percentage" step="0.01" required>
-                </div>
-
-                <div class="button-container">
-                    <button type="submit" class="send-button">Send Emails</button>
-                </div>
+            <h1>Attendance Recording</h1>
+            <form action="/start_recording" method="get">
+                <button type="submit" class="start-button">Start Recording</button>
             </form>
+            <form action="/stop_recording" method="get">
+                <button type="submit" class="stop-button">Stop Recording</button>
+            </form>
+
+            {% if absentees %}
+            <h2>Absentees</h2>
+            <ul>
+                {% for student in absentees %}
+                <li class="absent-student">{{ student }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
     </div>
-    <a href="index.html" class="go-back-link">Go Back</a>
+    <a href="/#page3" class="go-back-link">Go to Main Page</a>
 </body>
 
 </html>

@@ -161,7 +161,7 @@ body {
 }
 
 .option {
-    width: calc(20% - 20px);
+    width: calc(18% - 20px);
     /* Square-shaped, and gap included */
     padding: 20px;
     background-color: black;

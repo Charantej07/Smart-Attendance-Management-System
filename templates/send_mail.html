@@ -40,9 +40,13 @@
                     <button type="submit" class="send-button">Send Emails</button>
                 </div>
             </form>
+            {% if status %}
+            <p>{{status}}</p>
+            {% endif %}
         </div>
+
     </div>
-    <a href="index.html" class="go-back-link">Go Back</a>
+    <a href="/#page3" class="go-back-link">Go Back to Main Page</a>
 </body>
 
 </html>
