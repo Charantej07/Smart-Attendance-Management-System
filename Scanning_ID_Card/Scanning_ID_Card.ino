@@ -12,7 +12,7 @@ MFRC522::StatusCode status;
 
 const char* ssid = "realme X2";
 const char* password = "e^ipi=-1";
-const char* host = " 192.168.208.252";  // Change to the IP address of your Python server
+const char* host = " 192.168.16.252";  // Change to the IP address of your Python server
 unsigned int localPort = 8888;  // Change the port number
 
 WiFiUDP udp;
