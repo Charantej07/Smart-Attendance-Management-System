@@ -24,8 +24,10 @@ except mysql.connector.Error as err:
     exit()
 
 
-def get_course_id(date, time):
+def get_course_id():
+    date = datetime.now()
     day_of_week = date.strftime('%A')
+    time = date.strftime("%H:%M:%S")
     fetch_course_id_query = "SELECT course_id FROM timetable WHERE day = %s AND %s BETWEEN start_time AND end_time"
     cursor.execute(fetch_course_id_query, (day_of_week, time))
     course_id_result = cursor.fetchone()
@@ -35,18 +37,20 @@ def get_course_id(date, time):
         return None
 
 
+course_id = get_course_id()
+
 while True:
     data, addr = sock.recvfrom(1024)
     student_id = data.decode()
     student_id = student_id[:-1]
+    print(student_id)
     now = datetime.now()
     date = now.strftime("%Y-%m-%d")
     time = now.strftime("%H:%M:%S")
     status = "present"
-    course_id = get_course_id(date, time)
     try:
-        cursor.execute("INSERT INTO attendance (student_id,course_id, date, time, status) VALUES (%s,%s, %s, %s, %s)",
-                       (student_id, course_id, date, time, status))
+        cursor.execute("UPDATE attendance set status=%s,time=%s where student_id=%s and course_id=%s and date=%s",
+                       (status, time, student_id, course_id, date))
         conn.commit()
         print("Recorded attendance for Student ID:", student_id)
     except mysql.connector.Error as err:

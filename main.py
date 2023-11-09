@@ -73,7 +73,7 @@ def print_absentees(cursor, course_id, date):
     print_absenties_query = "SELECT student_id FROM attendance WHERE course_id = %s AND date = %s AND status = %s"
     cursor.execute(print_absenties_query, (course_id, date, "absent"))
     absent_entries = cursor.fetchall()
-    print("Absentees list")
+    print("Absentees list ", course_id)
     for entry in absent_entries:
         print(entry[0])
 

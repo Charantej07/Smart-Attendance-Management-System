@@ -83,8 +83,8 @@ def send_mail():
     return render_template('send_mail.html', status="")
 
 
-def get_course_id(cursor, date, time):
-    day_of_week = date.strftime('%A')
+def get_course_id(cursor, time):
+    day_of_week = datetime.now().strftime('%A')
     fetch_course_id_query = "SELECT course_id FROM timetable WHERE day = %s AND %s BETWEEN start_time AND end_time"
     cursor.execute(fetch_course_id_query, (day_of_week, time))
     course_id_result = cursor.fetchone()
@@ -140,13 +140,14 @@ def start_recording():
     global process
     current_date = datetime.now().date()
     current_time = datetime.now().time().strftime('%H:%M:%S')
-    course_id = get_course_id(cursor, current_date, current_time)
+    course_id = get_course_id(cursor, current_time)
     if course_id:
+        print(course_id)
         mark_all_absent(conn, cursor, course_id, current_date)
         print("Recording attendance, press 'q' to terminate")
         process = subprocess.Popen(['python', 'record_attendance.py'])
         process_pid = process.pid
-        print("hiiu", process.pid)
+        print(course_id, process_pid)
     return render_template('record_attendance.html')
 
 
@@ -154,7 +155,7 @@ def start_recording():
 def stop_recording():
     current_date = datetime.now().date()
     current_time = datetime.now().time().strftime('%H:%M:%S')
-    course_id = get_course_id(cursor, current_date, current_time)
+    course_id = get_course_id(cursor, current_time)
     global process
     process.terminate()
     # absentees = ['test']
