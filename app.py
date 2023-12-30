@@ -160,6 +160,7 @@ def stop_recording():
     process.terminate()
     # absentees = ['test']
     # if process_pid:os.kill(process_pid, 15)
+    conn.commit()
     absentees = []
     absent_entries = print_absentees(cursor, course_id, current_date)
     for entry in absent_entries:

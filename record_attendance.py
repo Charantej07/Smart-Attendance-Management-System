@@ -38,6 +38,7 @@ def get_course_id():
 
 
 course_id = get_course_id()
+print(course_id)
 
 while True:
     data, addr = sock.recvfrom(1024)
