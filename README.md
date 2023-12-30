@@ -2,6 +2,8 @@
 
 📚 Welcome to the Smart Attendance Management System, a sophisticated solution designed to streamline attendance tracking and management using RFID technology, a Flask-based web interface, and a MySQL database.
 
+rushita..
+
 ## Overview
 
 This project offers an integrated system that encompasses multiple components:
